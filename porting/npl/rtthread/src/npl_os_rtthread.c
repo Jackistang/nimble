@@ -25,13 +25,13 @@ void *ble_npl_get_current_task_id(void)
 }
 
 int ble_npl_task_init(struct ble_npl_task *t, const char *name,
-        ble_npl_task_fn *func,void *arg, uint8_t prio,
-        uint32_t sanity_itvl, uint32_t *stack_bottom, uint16_t stack_size)
+                      ble_npl_task_fn *func, void *arg, uint8_t prio,
+                      uint32_t sanity_itvl, uint32_t *stack_bottom, uint16_t stack_size)
 {
     rt_thread_t tid;
 
     tid = rt_thread_create(name, func, arg, stack_size, prio, 10);
-    if(tid)
+    if (tid)
     {
         t->t = tid;
         rt_thread_startup(tid);
@@ -60,7 +60,7 @@ struct ble_npl_event *ble_npl_eventq_get(struct ble_npl_eventq *evq, ble_npl_tim
 }
 
 #ifdef PKG_USING_BLUETRUM_SDK
-RT_SECTION(".com_text")
+    RT_SECTION(".com_text")
 #endif
 void ble_npl_eventq_put(struct ble_npl_eventq *evq, struct ble_npl_event *ev)
 {
@@ -84,6 +84,7 @@ void ble_npl_eventq_remove(struct ble_npl_eventq *evq, struct ble_npl_event *ev)
         return;
     }
 
+    // 此处使用复位整个消息队列来移除某个消息，存在隐患。
     rt_mq_control((struct rt_messagequeue *)evq->q, RT_IPC_CMD_RESET, RT_NULL);
     ev->queued = false;
 }
@@ -312,7 +313,7 @@ void ble_npl_hw_exit_critical(uint32_t ctx)
 }
 
 #ifdef PKG_USING_BLUETRUM_SDK
-RT_SECTION(".com_text") __attribute__((noinline))
+    RT_SECTION(".com_text") __attribute__((noinline))
 #endif
 static void os_callout_timer_cb(void *parameter)
 {
