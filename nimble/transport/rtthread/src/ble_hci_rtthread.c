@@ -153,10 +153,19 @@ rtthread_hci_uart_init(void)
     return 0;
 }
 
-void
-ble_transport_hs_init(void)
+int
+ble_transport_rtthread_init(void)
 {
+    int rc;
+
     hci_h4_sm_init(&g_hci_h4sm, &hci_h4_allocs_from_ll,
                    rtthread_ble_hci_frame_cb);
-    rtthread_ble_hci_init();
+    
+    rc = rtthread_hci_uart_init();
+    if (-1 == rc) {
+        return -1;
+    }
+
+    return 0;
 }
+INIT_COMPONENT_EXPORT(ble_transport_rtthread_init);

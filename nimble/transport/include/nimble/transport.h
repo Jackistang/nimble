@@ -29,6 +29,9 @@ extern "C" {
 
 struct os_mbuf;
 
+/* Init ble transport */
+void ble_transport_init(void);
+
 /* Allocators for supported data types */
 void *ble_transport_alloc_cmd(void);
 void *ble_transport_alloc_evt(int discardable);

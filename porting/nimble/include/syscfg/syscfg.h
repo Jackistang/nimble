@@ -5,6 +5,8 @@
 #ifndef H_MYNEWT_SYSCFG_
 #define H_MYNEWT_SYSCFG_
 
+#include <config/config.h>
+
 /**
  * This macro exists to ensure code includes this header when needed.  If code
  * checks the existence of a setting directly via ifdef without including this

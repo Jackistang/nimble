@@ -19,6 +19,8 @@ path += [
     cwd + '/nimble/host/services/tps/include',
     cwd + '/nimble/host/store/ram/include',
     cwd + '/nimble/host/util/include',
+    cwd + '/nimble/transport/include',
+    cwd + '/nimble/transport/common/hci_h4/include',
     cwd + '/porting/nimble/include',
     cwd + '/porting/npl/rtthread/include']
 
@@ -57,7 +59,6 @@ src += Split('''
     nimble/host/src/ble_l2cap_coc.c
     nimble/host/src/ble_l2cap_sig.c
     nimble/host/src/ble_l2cap_sig_cmd.c
-    nimble/host/src/ble_monitor.c
     nimble/host/src/ble_sm_alg.c
     nimble/host/src/ble_sm.c
     nimble/host/src/ble_sm_cmd.c
@@ -75,6 +76,14 @@ src += Split('''
     nimble/host/services/tps/src/ble_svc_tps.c
     nimble/host/store/ram/src/ble_store_ram.c
     nimble/host/util/src/addr.c
+    ''')
+
+# HCI transport
+src += Split('''
+    nimble/transport/src/monitor.c
+    nimble/transport/src/transport.c
+    nimble/transport/common/hci_h4/src/hci_h4.c
+    nimble/transport/rtthread/src/ble_hci_rtthread.c
     ''')
 
 # Few utils and data structures copied from Mynewt
