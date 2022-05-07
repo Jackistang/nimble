@@ -86,6 +86,50 @@ src += Split('''
     nimble/transport/rtthread/src/ble_hci_rtthread.c
     ''')
 
+# mesh
+if GetDepend(['PKG_NIMBLE_MESH']):
+    path += [cwd + '/nimble/host/mesh/include']
+
+    src += Split('''
+        nimble\host\mesh\src\access.c
+        nimble\host\mesh\src\adv_ext.c
+        nimble\host\mesh\src\adv_legacy.c
+        nimble\host\mesh\src\adv.c
+        nimble\host\mesh\src\aes-ccm.c
+        nimble\host\mesh\src\app_keys.c
+        nimble\host\mesh\src\beacon.c
+        nimble\host\mesh\src\cdb.c
+        nimble\host\mesh\src\cfg_cli.c
+        nimble\host\mesh\src\cfg_srv.c
+        nimble\host\mesh\src\cfg.c
+        nimble\host\mesh\src\crypto.c
+        nimble\host\mesh\src\friend.c
+        nimble\host\mesh\src\glue.c
+        nimble\host\mesh\src\health_cli.c
+        nimble\host\mesh\src\health_srv.c
+        nimble\host\mesh\src\heartbeat.c
+        nimble\host\mesh\src\light_model.c
+        nimble\host\mesh\src\lpn.c
+        nimble\host\mesh\src\mesh.c
+        nimble\host\mesh\src\model_cli.c
+        nimble\host\mesh\src\model_srv.c
+        nimble\host\mesh\src\msg.c
+        nimble\host\mesh\src\net.c
+        nimble\host\mesh\src\pb_adv.c
+        nimble\host\mesh\src\pb_gatt_srv.c
+        nimble\host\mesh\src\pb_gatt.c
+        nimble\host\mesh\src\prov_device.c
+        nimble\host\mesh\src\prov.c
+        nimble\host\mesh\src\provisioner.c
+        nimble\host\mesh\src\proxy_msg.c
+        nimble\host\mesh\src\proxy_srv.c
+        nimble\host\mesh\src\rpl.c
+        nimble\host\mesh\src\settings.c
+        nimble\host\mesh\src\shell.c
+        nimble\host\mesh\src\subnet.c
+        nimble\host\mesh\src\transport.c
+    ''')
+
 # Few utils and data structures copied from Mynewt
 src += Split('''
     porting/nimble/src/nimble_port.c''')
@@ -155,6 +199,7 @@ if GetDepend(['PKG_NIMBLE_CTLR']):
         nimble/controller/src/ble_ll_scan.c
         nimble/controller/src/ble_ll_dtm.c
         nimble/controller/src/ble_ll_hci_ev.c
+        nimble/controller/src/ble_ll_hci_vs.c
         nimble/controller/src/ble_ll_iso.c
         nimble/controller/src/ble_ll_rfmgmt.c
         nimble/controller/src/ble_ll_scan_aux.c
