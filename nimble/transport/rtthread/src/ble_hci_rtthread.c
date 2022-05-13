@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
 #include <sysinit/sysinit.h>
 #include <nimble/ble.h>
 #include <nimble/transport.h>
@@ -92,17 +93,16 @@ ble_transport_to_ll_acl_impl(struct os_mbuf *om)
 static void
 rtthread_hci_uart_entry(void *args)
 {
-    uint8_t rx;
+    uint8_t rx[64];
+    size_t len;
 
     while (1)
     {
         // TODO 优化接收线程
-        while (rt_device_read(g_hci_uart, 0, &rx, 1) > 0)
-        {
-            hci_h4_sm_rx(&g_hci_h4sm, &rx, 1);
+        len = rt_device_read(g_hci_uart, 0, rx, ARRAY_SIZE(rx));
+        if (len > 0) {
+            hci_h4_sm_rx(&g_hci_h4sm, rx, len);
         }
-
-        rt_thread_mdelay(1);
     }
 }
 
@@ -125,7 +125,7 @@ rtthread_hci_uart_init(void)
         MYNEWT_VAL_CHOICE(BLE_TRANSPORT_UART_FLOW_CONTROL, off)
      */
 
-    g_hci_uart = rt_device_find("uart2");
+    g_hci_uart = rt_device_find("uart1");
     if (NULL == g_hci_uart)
     {
         return -1;
@@ -163,9 +163,11 @@ ble_transport_rtthread_init(void)
     
     rc = rtthread_hci_uart_init();
     if (-1 == rc) {
+        printf("NimBLE transport rtthread init failed\n");
         return -1;
     }
 
+    printf("NimBLE transport rtthread init success\n");
     return 0;
 }
 INIT_COMPONENT_EXPORT(ble_transport_rtthread_init);

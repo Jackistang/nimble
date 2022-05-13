@@ -207,9 +207,14 @@ blehr_on_sync(void)
 {
     int rc;
 
-    /* Use privacy */
-    rc = ble_hs_id_infer_auto(0, &blehr_addr_type);
-    assert(rc == 0);
+    uint8_t addr[6] = {0xcc, 0xbb, 0xaa, 0x33, 0x22, 0x11};
+    rc = ble_hs_id_set_rnd(addr);
+    if (0 != rc) {
+	    printf("Set random address error (0x%x)\n", rc);
+	    return ;
+    }
+
+    blehr_addr_type = BLE_OWN_ADDR_RANDOM;
 
     /* Begin advertising */
     blehr_advertise();
@@ -217,6 +222,8 @@ blehr_on_sync(void)
 
 extern int nimble_ble_enable(void);
 extern struct ble_npl_eventq *nimble_port_get_dflt_eventq(void);
+extern void ble_hs_thread_startup(void);
+
 static int ble_hr(void)
 {
     int rc;
