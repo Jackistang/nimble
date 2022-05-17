@@ -21,8 +21,8 @@ path += [
     cwd + '/nimble/host/util/include',
     cwd + '/nimble/transport/include',
     cwd + '/nimble/transport/common/hci_h4/include',
-    cwd + '/porting/nimble/include',
-    cwd + '/porting/npl/rtthread/include']
+    cwd + '/porting/npl/rtthread/include',
+    cwd + '/porting/nimble/include']
 
 # Host stack
 src += Split('''
@@ -294,7 +294,7 @@ if GetDepend(['PKG_NIMBLE_SAMPLE_EXT_ADVERTISER']):
 if GetDepend(['PKG_NIMBLE_SAMPLE_BEACON']):
     src += Glob('apps/ibeacon/src/ibeacon.c')
 
-LOCAL_CCFLAGS = ''
+LOCAL_CCFLAGS = '-Wno-format -Wno-unused-variable -Wno-unused-but-set-variable'
 
 if rtconfig.CROSS_TOOL == 'keil':
     LOCAL_CCFLAGS += ' --gnu --diag_suppress=111'
