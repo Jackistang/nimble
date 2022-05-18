@@ -39,6 +39,12 @@ rtthread_ble_hci_uart_write_all(const uint8_t *buf, size_t size)
     size_t remaining = size;
     size_t write_len;
 
+    printf("Send: %u bytes: ", size);
+    for (size_t i = 0; i < size; i++) {
+        printf("%02X ", buf[i]);
+    }
+    printf("\n");
+
     while (remaining > 0)
     {
         write_len = rt_device_write(g_hci_uart, 0, buf, remaining);
@@ -101,8 +107,11 @@ rtthread_hci_uart_entry(void *args)
         // TODO 优化接收线程
         len = rt_device_read(g_hci_uart, 0, rx, ARRAY_SIZE(rx));
         if (len > 0) {
+            printf("Recv %u bytes\n", len);
             hci_h4_sm_rx(&g_hci_h4sm, rx, len);
         }
+
+        rt_thread_mdelay(1);
     }
 }
 
@@ -138,6 +147,7 @@ rtthread_hci_uart_init(void)
     }
 
     struct serial_configure config = RT_SERIAL_CONFIG_DEFAULT;
+    config.flowcontrol = RT_SERIAL_FLOWCONTROL_CTSRTS;
     rc = rt_device_control(g_hci_uart, RT_DEVICE_CTRL_CONFIG, &config);
     if (-RT_EBUSY == rc)
     {
