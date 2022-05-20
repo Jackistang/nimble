@@ -75,4 +75,7 @@ ble_npl_hw_is_in_critical(void)
     return rt_interrupt_nest ? true : false;
 }
 
+/* startup bluetooth host stack */
+extern void ble_hs_thread_startup(void);
+
 #endif  /* _NPL_H_ */

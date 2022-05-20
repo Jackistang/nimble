@@ -222,7 +222,6 @@ blehr_on_sync(void)
 
 extern int nimble_ble_enable(void);
 extern struct ble_npl_eventq *nimble_port_get_dflt_eventq(void);
-extern void ble_hs_thread_startup(void);
 
 static int ble_hr(void)
 {

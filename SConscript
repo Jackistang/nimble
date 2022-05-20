@@ -211,6 +211,12 @@ if GetDepend(['PKG_NIMBLE_CTLR']):
         porting/npl/rtthread/src/nrf5x_isr.c
         """)
 
+# advertiser sample
+if GetDepend(['PKG_NIMBLE_SAMPLE_ADVERTISER']):
+    src += Split("""
+        apps/advertiser/src/advertiser.c
+    """)
+
 # central sample
 if GetDepend(['PKG_NIMBLE_SAMPLE_CENTRAL']):
     path += [cwd + '/apps/blecent/src']

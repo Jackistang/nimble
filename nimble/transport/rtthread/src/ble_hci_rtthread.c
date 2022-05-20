@@ -98,11 +98,12 @@ rtthread_hci_uart_entry(void *args)
 
     while (1)
     {
-        // TODO 优化接收线程
         len = rt_device_read(g_hci_uart, 0, rx, ARRAY_SIZE(rx));
         if (len > 0) {
             hci_h4_sm_rx(&g_hci_h4sm, rx, len);
         }
+
+        rt_thread_mdelay(1);
     }
 }
 
