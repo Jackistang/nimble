@@ -1,3 +1,10 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Date           Author       Notes
+ * 2022-05-20     Jackistang   first implementation
+ */
+
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
