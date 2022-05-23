@@ -1,15 +1,6 @@
 # NimBLE
 
-Project Description
-
 NimBLE TODO 列表
-
-----
-
-Reference:
-
-- https://github.com/todomd/todo.md
-- VSCode extension: TODO.md Kanban Board
 
 <em>[TODO.md spec & Kanban Board](https://bit.ly/3fCwKfM)</em>
 
